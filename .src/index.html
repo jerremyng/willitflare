@@ -14,7 +14,7 @@
     <p>Calculator for releasing flares during aerial maneuvers</p>
 
     <h2>Flare Calculator</H2>
-    <form action="/api/flaremath" method="post">
+    <form action="/api/flaremath" method="post" id="form">
         <label for="plane">Select plane</label><br>
         <select name="plane" id="plane">
             <option value="F15">F15</option>
@@ -32,15 +32,24 @@
 
     </form>
 
-    <div>result</div>
-
-    <p>Loading content from the API: <b id="name">...</b></p>
+    <div id="result">result</div>
 
     <script>
-    (async function() {
-        const { text } = await( await fetch(`/api/flaremath`)).json();
-        document.querySelector('#name').textContent = text;
-    }())
+    const myForm = document.getElementById('form');
+
+    myForm.addEventListener('submit',function(e){
+        e.preventDefault();
+
+        const formdata = new FormData(this);
+
+        fetch('/api/flaremath', {
+            method:'post',
+            body: formdata
+        }).then(function(response) {
+            return response.text();
+        })
+    });
+
     </script>
 
 </body>
