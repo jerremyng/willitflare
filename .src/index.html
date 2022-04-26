@@ -42,9 +42,9 @@
         document.querySelector('#name').textContent = text;
     }())
 
-    myfunc();
-    console.log('calling');
-
+    document.querySelector('html').addEventListener('click', function() {
+        alert('Ouch! Stop poking me!');
+    });
     </script>
 
 </body>
