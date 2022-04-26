@@ -1,39 +1,26 @@
 import logging
-from pydoc import plainpager
 
 import azure.functions as func
 
+from urllib.parse import parse_qs
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
+    # This function will parse the response of a form submitted using the POST method
+    # The request body is a Bytes object
+    # You must first decode the Bytes object to a string
+    # Then you can parse the string using urllib parse_qs
 
-    req_body = req.get_json()
-    plane = req_body.get('plane')
-    flare = req_body.get('flare')
+    logging.info("Python HTTP trigger function processed a request.")
+    req_body_bytes = req.get_body()
+    logging.info(f"Request Bytes: {req_body_bytes}")
+    req_body = req_body_bytes.decode("utf-8")
+    logging.info(f"Request: {req_body}")
+
+    plane = parse_qs(req_body)["plane"][0]
+    flare = parse_qs(req_body)["flare"][0]
 
     return func.HttpResponse(
-            f"Your plane is {plane} and flare is {flare}",
-            status_code=200
-        )
-
-
-    # name = req.params.get('name')
-    # if not name:
-    #     try:
-    #         req_body = req.get_json()
-    #     except ValueError:
-    #         pass
-    #     else:
-    #         name = req_body.get('name')
-
-    # if name:
-    #     # return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    #     return func.HttpResponse(
-    #     f"Your plane is {name} and flare is {name}",
-    #     status_code=200
-    #     )
-    # else:
-    #     return func.HttpResponse(
-    #         f"help please",
-    #         status_code=200
-    #     )
+        f"You submitted this information: {plane} {flare}",
+        status_code=200,
+    )
