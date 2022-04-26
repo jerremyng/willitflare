@@ -1,0 +1,9 @@
+h1 {
+    size: 20;
+    color: aqua;
+    background-color: blueviolet;
+}
+
+body {
+    background-image: linear-gradient(red, yellow);
+  }
