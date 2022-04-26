@@ -16,15 +16,15 @@
     <h2>Flare Calculator</H2>
     <form action="/api/flaremath" method="post">
         <label for="plane">Select plane</label><br>
-        <select name="'plane" id="plane">
+        <select name="plane" id="plane">
             <option value="F15">F15</option>
             <option value="'F16">F16</option>
         </select>
 
         <p>Select flare variant</p>
-        <select name="'plane" id="plane">
-            <option value="F15">???</option>
-            <option value="'F16">no clue</option>
+        <select name="flare" id="flare">
+            <option value="red">red color</option>
+            <option value="'blue">blue color</option>
         </select>
 
         <br>
@@ -41,10 +41,6 @@
         const { text } = await( await fetch(`/api/flaremath`)).json();
         document.querySelector('#name').textContent = text;
     }())
-
-    document.querySelector('html').addEventListener('click', function() {
-        alert('Ouch! Stop poking me!');
-    });
     </script>
 
 </body>
