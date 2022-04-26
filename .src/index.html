@@ -37,10 +37,14 @@
     <p>Loading content from the API: <b id="name">...</b></p>
 
     <script>
-    (async function() {
+    (async function myfunc() {
         const { text } = await( await fetch(`/api/flaremath`)).json();
         document.querySelector('#name').textContent = text;
     }())
+
+    myfunc;
+    console.log('calling');
+
     </script>
 
 </body>
